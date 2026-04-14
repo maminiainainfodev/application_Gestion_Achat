@@ -1,0 +1,217 @@
+generator client {
+  provider      = "prisma-client-js"
+  output        = "../src/generated/prisma_v2"
+  binaryTargets = ["native", "debian-openssl-3.0.x"]
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model Service {
+  id                   Int             @id @default(autoincrement()) @map("ID")
+  nomService           String          @unique @map("NomService")
+  abreviation          String?         @unique @map("Abreviation")
+  chefServiceMatricule String?         @map("ChefServiceMatricule")
+  budgets              Budget[]
+  collaborateurs       Collaborateur[] @relation("ServiceCollaborateurs")
+  fonctions            Fonction[]      @relation("ServiceFonctions")
+  chef                 Collaborateur?  @relation("ServiceChef", fields: [chefServiceMatricule], references: [matricule])
+
+  @@index([chefServiceMatricule], map: "Service_ChefServiceMatricule_fkey")
+  @@map("service")
+}
+
+model Fournisseur {
+  id        Int         @id @default(autoincrement()) @map("ID")
+  nom       String?     @map("Nom")
+  adresse   String?     @map("Adresse") @db.Text
+  nomCheque String?     @map("NomCheque")
+  nif       String?     @unique @map("NIF")
+  cin       String?     @unique @map("CIN")
+  demandes  Demandeur[]
+
+  @@map("fournisseur")
+}
+
+model Fonction {
+  id             Int             @id @default(autoincrement()) @map("ID_Fonction")
+  nomFonction    String          @unique @map("NomFonction")
+  abreviation    String?         @unique @map("Abreviation")
+  serviceId      Int?            @map("ServiceID")
+  chefMatricule  String?         @map("ChefMatricule")
+  collaborateurs Collaborateur[] @relation("FonctionCollaborateurs")
+  chef           Collaborateur?  @relation("FonctionChef", fields: [chefMatricule], references: [matricule])
+  service        Service?        @relation("ServiceFonctions", fields: [serviceId], references: [id])
+
+  @@index([chefMatricule], map: "Fonction_ChefMatricule_fkey")
+  @@index([serviceId], map: "Fonction_ServiceID_fkey")
+  @@map("fonction")
+}
+
+model Collaborateur {
+  id                 Int                    @id @default(autoincrement()) @map("Id_collaborateur")
+  matricule          String                 @unique @map("Matricule")
+  nom                String?                @map("Nom")
+  prenom             String?                @map("Prenom")
+  prenomUsuelle      String?                @map("PrenomUsuelle")
+  civilite           Civilite?              @map("Civilite")
+  fonctionAbbrev     String?                @map("FonctionAbbrev")
+  serviceAbbrev      String?                @map("ServiceAbbrev")
+  telephone          String?                @map("Telephone")
+  mailPro            String?                @map("MailPro")
+  photo              String?                @map("Photo") @db.LongText
+  collaborateurRoles CollaborateurRoles[]
+  fonction           Fonction?              @relation("FonctionCollaborateurs", fields: [fonctionAbbrev], references: [abreviation])
+  service            Service?               @relation("ServiceCollaborateurs", fields: [serviceAbbrev], references: [abreviation])
+  comptes            ComptesUtilisateurs?
+  demandes           Demandeur[]            @relation("AuteurDemandes")
+  fonctionsChef      Fonction[]             @relation("FonctionChef")
+  historiqueValide   HistoriqueValidation[] @relation("Valideur")
+  servicesChef       Service[]              @relation("ServiceChef")
+
+  @@index([fonctionAbbrev], map: "collaborateurs_FonctionAbbrev_fkey")
+  @@index([serviceAbbrev], map: "collaborateurs_ServiceAbbrev_fkey")
+  @@map("collaborateurs")
+}
+
+model ComptesUtilisateurs {
+  matricule_collaborateur String        @id @map("Matricule_collaborateur")
+  motDePasse              String        @map("MotDePasse")
+  collaborateur           Collaborateur @relation(fields: [matricule_collaborateur], references: [matricule], onDelete: Cascade)
+
+  @@map("comptesutilisateurs")
+}
+
+model Roles {
+  id                 Int                  @id @default(autoincrement()) @map("ID")
+  nomRole            String               @unique @map("NomRole")
+  collaborateurRoles CollaborateurRoles[]
+
+  @@map("roles")
+}
+
+model CollaborateurRoles {
+  matricule     String        @map("Matricule")
+  roleID        Int           @map("RoleID")
+  collaborateur Collaborateur @relation(fields: [matricule], references: [matricule], onDelete: Cascade)
+  role          Roles         @relation(fields: [roleID], references: [id], onDelete: Cascade)
+
+  @@id([matricule, roleID])
+  @@index([roleID], map: "idx_collabrole_role")
+  @@map("collaborateurroles")
+}
+
+model Budget {
+  id                Int         @id @default(autoincrement()) @map("ID")
+  codeBudgetaire    String      @unique @map("CodeBudgetaire")
+  montantDisponible Decimal     @default(0.00) @map("MontantDisponible") @db.Decimal(15, 2)
+  serviceId         Int?        @map("ServiceID")
+  service           Service?    @relation(fields: [serviceId], references: [id])
+  demandes          Demandeur[]
+
+  @@index([serviceId], map: "idx_budget_service")
+  @@index([codeBudgetaire], map: "idx_budget_code")
+  @@map("budget")
+}
+
+model WorkflowEtapes {
+  id          Int         @id @default(autoincrement()) @map("ID")
+  type        TypeNavette @map("TypeNavette")
+  etape       Int         @map("Etape")
+  roleRequis  String      @map("RoleRequis")
+  description String?     @map("Description")
+
+  @@unique([type, etape], name: "unique_type_etape")
+  @@index([type, etape], map: "idx_workflow_type_etape")
+  @@map("workflowetapes")
+}
+
+model Demandeur {
+  id                  Int                    @id @default(autoincrement()) @map("Id")
+  auteurMatricule     String?                @map("AuteurMatricule")
+  type                TypeNavette            @map("Type")
+  etapeActuelle       Int                    @default(1) @map("EtapeActuelle")
+  numero              Int?                   @map("Numero")
+  objet               String?                @map("Objet")
+  description         String?                @map("Description")
+  motif               String?                @map("Motif")
+  quantite            Int?                   @map("Quantite")
+  fournisseurID       Int?                   @map("FournisseurID")
+  pu                  Decimal?               @map("PU") @db.Decimal(15, 2)
+  montant             Decimal?               @map("Montant") @db.Decimal(15, 2)
+  devis               String?                @map("Devis")
+  pieceJointe         String?                @map("PieceJointe")
+  justificationChoix  String?                @map("JustificationChoix")
+  imputationComptable String?                @map("ImputationComptable")
+  activite            String?                @map("Activite")
+  codeTIGER           String?                @map("CodeTIGER")
+  modePaiement        String?                @map("ModePaiement")
+  paiementDetail      String?                @map("PaiementDetail")
+  numeroBonCommande   String?                @map("NumeroBonCommande")
+  dateLivraison       DateTime?              @map("DateLivraison") @db.Date
+  versQui             String?                @map("VersQui")
+  statut              StatutDemande          @default(EN_ATTENTE) @map("Statut")
+  budgetID            Int?                   @map("BudgetID")
+  dateDepot           DateTime               @default(now()) @map("DateDepot")
+  dateFinalisation    DateTime?              @map("DateFinalisation")
+  isAPGenere          Boolean                @default(false) @map("IsAPGenere")
+  isBCGenere          Boolean                @default(false) @map("IsBCGenere")
+  reference           String?                @map("Reference")
+  auteur              Collaborateur?         @relation("AuteurDemandes", fields: [auteurMatricule], references: [matricule])
+  budget              Budget?                @relation(fields: [budgetID], references: [id])
+  fournisseur         Fournisseur?           @relation(fields: [fournisseurID], references: [id])
+  historique          HistoriqueValidation[]
+
+  @@index([fournisseurID], map: "idx_demandeur_fournisseur")
+  @@index([auteurMatricule], map: "idx_demandeur_auteur")
+  @@index([etapeActuelle], map: "idx_demandeur_etape")
+  @@index([budgetID], map: "idx_demandeur_budget")
+  @@map("demandeur")
+}
+
+model HistoriqueValidation {
+  id                Int              @id @default(autoincrement()) @map("ID")
+  demandeurID       Int              @map("DemandeurID")
+  etape             Int              @map("Etape")
+  valideurMatricule String?          @map("ValideurMatricule")
+  statut            StatutValidation @map("Statut")
+  motifRefus        String?          @map("MotifRefus")
+  dateValidation    DateTime         @default(now()) @map("DateValidation")
+  id_navette        Int?             @map("ID_Navette")
+  reference_navette String?          @map("Reference_Navette")
+  demandeur         Demandeur        @relation(fields: [demandeurID], references: [id], onDelete: Cascade)
+  valideur          Collaborateur?   @relation("Valideur", fields: [valideurMatricule], references: [matricule])
+
+  @@index([demandeurID, etape], map: "idx_hist_demandeur_etape")
+  @@index([valideurMatricule, dateValidation], map: "idx_hist_valideur_date")
+  @@map("historiquevalidation")
+}
+
+enum Civilite {
+  HOMME @map("Homme")
+  FEMME @map("Femme")
+}
+
+enum TypeNavette {
+  ACHAT      @map("Achat")
+  PAIEMENT   @map("Paiement")
+  NOTE_FRAIS @map("NoteFrais")
+  DRFMS      @map("DRFMS")
+  DRFME      @map("DRFME")
+}
+
+enum StatutDemande {
+  EN_ATTENTE @map("En attente")
+  REFUSEE    @map("Refusée")
+  VALIDEE    @map("Validée")
+  EN_MAGASIN @map("En magasin")
+}
+
+enum StatutValidation {
+  VALIDEE    @map("Validée")
+  REFUSEE    @map("Refusée")
+  EN_ATTENTE @map("En attente")
+  MIS_A_JOUR @map("Mis à jour")
+}

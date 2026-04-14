@@ -1,0 +1,200 @@
+import Announcements from "@/components/Announcements";
+import BigCalendar from "@/components/BigCalender";
+import FormModal from "@/components/FormModal";
+import Performance from "@/components/Performance";
+import { role } from "@/lib/data";
+import Image from "next/image";
+import Link from "next/link";
+
+type Collaborator = {
+  Matricule: string;
+  Nom: string;
+  Prenom: string;
+  PrenomUsuelle: string;
+  Civilite: 'Homme' | 'Femme';
+  Fonction: string;
+  Service: string;
+  Telephone: string;
+  MailPro: string;
+  PhotoURL: string;
+  Id_collaborateur: number;
+};
+
+const collaborator: Collaborator = {
+  Id_collaborateur: 42, // ID ajouté ici
+  Matricule: "MAT-456",
+  Nom: "SYNDER",
+  Prenom: "LÉONARD",
+  PrenomUsuelle: "Leo",
+  Civilite: "Homme",
+  Fonction: "Chef Comptable",
+  Service: "FIN",
+  Telephone: "+261 34 56 789 01",
+  MailPro: "leonard.synder@compagnie.com",
+  PhotoURL: "https://images.pexels.com/photos/2182970/pexels-photo-2182970.jpeg?auto=compress&cs=tinysrgb&w=1200",
+};
+
+const SingleCollaboratorPage = () => {
+  const collaboratorUpdateData = {
+    Id_collaborateur: collaborator.Id_collaborateur,
+    Matricule: collaborator.Matricule,
+    Nom: collaborator.Nom,
+    Prenom: collaborator.Prenom,
+    PrenomUsuelle: collaborator.PrenomUsuelle,
+    Civilite: collaborator.Civilite,
+    Fonction: collaborator.Fonction,
+    Service: collaborator.Service,
+    Telephone: collaborator.Telephone,
+    MailPro: collaborator.MailPro,
+    PhotoURL: collaborator.PhotoURL,
+  };
+
+  return (
+    <div className="flex-1 p-4 flex flex-col gap-4 xl:flex-row">
+      {/* LEFT */}
+      <div className="w-full xl:w-2/3">
+        {/* TOP */}
+        <div className="flex flex-col lg:flex-row gap-4">
+          {/* USER INFO CARD */}
+          <div className="bg-lamaSky py-6 px-4 rounded-md flex-1 flex gap-4">
+            <div className="w-1/3">
+              <Image
+                src={collaborator.PhotoURL || "/avatar.png"}
+                alt={`Photo de ${collaborator.Prenom}`}
+                width={144}
+                height={144}
+                className="w-36 h-36 rounded-full object-cover"
+                onError={(e) => {
+                  const target = e.target as HTMLImageElement;
+                  target.src = "/avatar.png";
+                }}
+              />
+            </div>
+            <div className="w-2/3 flex flex-col justify-between gap-4">
+              <div className="flex items-center gap-4">
+                <h1 className="text-xl font-semibold">{`${collaborator.Prenom} ${collaborator.Nom}`}</h1>
+                {role === "admin" && <FormModal
+                  table="Collaborateurs"
+                  type="update"
+                  data={collaboratorUpdateData}
+                />}
+              </div>
+              <p className="text-sm text-gray-500">
+                <span className="font-bold">ID {collaborator.Id_collaborateur}</span> | {collaborator.Matricule} - {collaborator.Fonction} ({collaborator.Service})
+              </p>
+              <div className="flex items-center justify-between gap-2 flex-wrap text-xs font-medium">
+                <div className="w-full md:w-1/3 lg:w-full 2xl:w-1/3 flex items-center gap-2">
+                  <Image src="/singleBranch.png" alt="" width={14} height={14} />
+                  <span>{collaborator.Service}</span>
+                </div>
+                <div className="w-full md:w-1/3 lg:w-full 2xl:w-1/3 flex items-center gap-2">
+                  <Image src="/date.png" alt="" width={14} height={14} />
+                  <span>{collaborator.Fonction}</span>
+                </div>
+                <div className="w-full md:w-1/3 lg:w-full 2xl:w-1/3 flex items-center gap-2">
+                  <Image src="/mail.png" alt="" width={14} height={14} />
+                  <span>{collaborator.MailPro}</span>
+                </div>
+                <div className="w-full md:w-1/3 lg:w-full 2xl:w-1/3 flex items-center gap-2">
+                  <Image src="/phone.png" alt="" width={14} height={14} />
+                  <span>{collaborator.Telephone}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          {/* SMALL CARDS */}
+          <div className="flex-1 flex gap-4 justify-between flex-wrap">
+            {/* CARD: Demandes Soumises */}
+            <div className="bg-white p-4 rounded-md flex gap-4 w-full md:w-[48%] xl:w-[45%] 2xl:w-[48%]">
+              <Image
+                src="/singleAttendance.png"
+                alt=""
+                width={24}
+                height={24}
+                className="w-6 h-6"
+              />
+              <div className="">
+                <h1 className="text-xl font-semibold">12</h1>
+                <span className="text-sm text-gray-400">Demandes Soumises</span>
+              </div>
+            </div>
+            {/* CARD: Demandes à Valider */}
+            <div className="bg-white p-4 rounded-md flex gap-4 w-full md:w-[48%] xl:w-[45%] 2xl:w-[48%]">
+              <Image
+                src="/singleBranch.png"
+                alt=""
+                width={24}
+                height={24}
+                className="w-6 h-6"
+              />
+              <div className="">
+                <h1 className="text-xl font-semibold">3</h1>
+                <span className="text-sm text-gray-400">Demandes à Valider</span>
+              </div>
+            </div>
+            {/* CARD: Rôles Attribués */}
+            <div className="bg-white p-4 rounded-md flex gap-4 w-full md:w-[48%] xl:w-[45%] 2xl:w-[48%]">
+              <Image
+                src="/singleLesson.png"
+                alt=""
+                width={24}
+                height={24}
+                className="w-6 h-6"
+              />
+              <div className="">
+                <h1 className="text-xl font-semibold">2</h1>
+                <span className="text-sm text-gray-400">Rôles Attribués</span>
+              </div>
+            </div>
+            {/* CARD: Budget Géré */}
+            <div className="bg-white p-4 rounded-md flex gap-4 w-full md:w-[48%] xl:w-[45%] 2xl:w-[48%]">
+              <Image
+                src="/singleClass.png"
+                alt=""
+                width={24}
+                height={24}
+                className="w-6 h-6"
+              />
+              <div className="">
+                <h1 className="text-xl font-semibold">450M</h1>
+                <span className="text-sm text-gray-400">Budget Géré</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        {/* BOTTOM */}
+        <div className="mt-4 bg-white rounded-md p-4 h-[800px]">
+          <h1>Calendrier des Validations</h1>
+          <BigCalendar />
+        </div>
+      </div>
+      {/* RIGHT */}
+      <div className="w-full xl:w-1/3 flex flex-col gap-4">
+        <div className="bg-white p-4 rounded-md">
+          <h1 className="text-xl font-semibold">Raccourcis</h1>
+          <div className="mt-4 flex gap-4 flex-wrap text-xs text-gray-500">
+            <Link className="p-3 rounded-md bg-lamaSkyLight" href="/">
+              Demandes en Attente
+            </Link>
+            <Link className="p-3 rounded-md bg-lamaPurpleLight" href="/">
+              Historique des Validations
+            </Link>
+            <Link className="p-3 rounded-md bg-lamaYellowLight" href="/">
+              Budgets du Service
+            </Link>
+            <Link className="p-3 rounded-md bg-pink-50" href="/">
+              Dépenses Récentes
+            </Link>
+            <Link className="p-3 rounded-md bg-lamaSkyLight" href="/">
+              Gérer les Rôles
+            </Link>
+          </div>
+        </div>
+        <Performance />
+        <Announcements />
+      </div>
+    </div>
+  );
+};
+
+export default SingleCollaboratorPage;

@@ -1,0 +1,3 @@
+-- AlterTable
+ALTER TABLE `demandeur` ADD COLUMN `IsAPGenere` BOOLEAN NOT NULL DEFAULT false,
+    ADD COLUMN `IsBCGenere` BOOLEAN NOT NULL DEFAULT false;

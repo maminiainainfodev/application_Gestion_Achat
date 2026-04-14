@@ -1,0 +1,9 @@
+[Desktop Entry]
+Name=Fing
+Exec=env WINEPREFIX="/home/admin/.wine" wine-stable C:\\\\users\\\\Public\\\\Desktop\\\\Fing.lnk
+Type=Application
+StartupNotify=true
+Comment=Fing Desktop App
+Path=/home/admin/.wine/dosdevices/c:/Program Files/Fing
+Icon=2695_Fing.0
+StartupWMClass=fing.exe

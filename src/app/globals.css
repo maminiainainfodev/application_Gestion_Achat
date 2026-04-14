@@ -1,0 +1,396 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.surface-panel {
+  background-color: #ffffff;
+  border-radius: 1.25rem;
+  border: 1px solid rgba(226, 232, 240, 0.9);
+  padding: 1.5rem;
+  box-shadow: 0 18px 40px rgba(15, 23, 42, 0.08);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  overflow: visible;
+}
+
+.surface-panel:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 25px 55px rgba(15, 23, 42, 0.15);
+}
+
+.surface-card {
+  background-color: #ffffff;
+  border-radius: 1.25rem;
+  border: 1px solid rgba(148, 163, 184, 0.2);
+  padding: 1.25rem;
+  box-shadow: 0 12px 30px rgba(15, 23, 42, 0.08);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.surface-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 20px 45px rgba(15, 23, 42, 0.12);
+}
+
+.floating-section {
+  position: relative;
+  border-radius: 1.75rem;
+  padding: 2rem;
+  background: linear-gradient(120deg, rgba(37, 99, 235, 0.1), rgba(124, 58, 237, 0.06));
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  box-shadow: 0 30px 60px rgba(15, 23, 42, 0.1);
+  overflow: visible;
+  isolation: auto;
+}
+
+.floating-section::after {
+  content: "";
+  position: absolute;
+  inset: 1px;
+  border-radius: inherit;
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  pointer-events: none;
+}
+
+.react-calendar {
+  width: 100% !important;
+  border: none !important;
+  font-family: "Inter", sans-serif !important;
+}
+
+.react-calendar__navigation__label__labelText {
+  font-weight: 600;
+}
+
+.react-calendar__tile--active {
+  background-color: #c3ebfa !important;
+  color: black !important;
+}
+
+.rbc-btn-group:first-child {
+  display: none !important;
+}
+
+.rbc-toolbar-label {
+  text-align: right !important;
+  padding: 0px 20px !important;
+}
+
+.rbc-btn-group:last-child {
+  font-size: 13px !important;
+}
+
+.rbc-btn-group:last-child button {
+  border: none !important;
+  background-color: #f1f0ff !important;
+  margin-left: 2px !important;
+}
+
+.rbc-toolbar button.rbc-active {
+  background-color: #dbdafe !important;
+  box-shadow: none !important;
+}
+
+.rbc-time-view {
+  border-color: #eee !important;
+}
+
+.rbc-time-header {
+  display: none !important;
+}
+
+.rbc-time-content {
+  border: none !important;
+}
+
+.rbc-time-gutter.rbc-time-column {
+  font-size: 12px !important;
+}
+
+.rbc-time-gutter.rbc-time-column .rbc-timeslot-group {
+  padding: 0px 20px !important;
+}
+
+.rbc-timeslot-group {
+  background-color: #f7fdff !important;
+}
+
+.rbc-day-slot {
+  font-size: 14px !important;
+}
+
+.rbc-event {
+  border: none !important;
+  color: black !important;
+  padding: 10px !important;
+  margin: 10px !important;
+  width: 99% !important;
+}
+
+.rbc-event:nth-child(1) {
+  background-color: #e2f8ff !important;
+}
+
+.rbc-event:nth-child(2) {
+  background-color: #fefce8 !important;
+}
+
+.rbc-event:nth-child(3) {
+  background-color: #f2f1ff !important;
+}
+
+.rbc-event:nth-child(4) {
+  background-color: #fdf2fb !important;
+}
+
+.rbc-event:nth-child(5) {
+  background-color: #e2f8ff !important;
+}
+
+.rbc-event:nth-child(6) {
+  background-color: #fefce8 !important;
+}
+
+.rbc-event:nth-child(7) {
+  background-color: #f2f1ff !important;
+}
+
+.rbc-event:nth-child(8) {
+  background-color: #fdf2fb !important;
+}
+
+.rbc-event-label {
+  color: gray !important;
+  margin-bottom: 5px;
+}
+
+@keyframes shimmer {
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes scaleIn {
+  from {
+    transform: scale(0.95);
+    opacity: 0;
+  }
+
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.animate-fadeIn {
+  animation: fadeIn 0.25s ease-out forwards;
+}
+
+.animate-scaleIn {
+  animation: scaleIn 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Glassmorphism Styles */
+.glass-panel {
+  @apply relative;
+  background: rgba(255, 255, 255, 0.45);
+  backdrop-filter: blur(14px) saturate(180%);
+  -webkit-backdrop-filter: blur(14px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  border-radius: 1.5rem;
+  box-shadow: none;
+  transition: all 0.3s ease;
+}
+
+.glass-card {
+  @apply relative overflow-hidden;
+  background: rgba(255, 255, 255, 0.6);
+  backdrop-filter: blur(10px) saturate(160%);
+  -webkit-backdrop-filter: blur(10px) saturate(160%);
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  border-radius: 1.25rem;
+  box-shadow: 0 6px 20px 0 rgba(0, 0, 0, 0.08);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.glass-card:hover {
+  background: rgba(255, 255, 255, 0.8);
+  transform: translateY(-4px);
+  box-shadow: 0 12px 40px 0 rgba(31, 38, 135, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.6);
+}
+
+/* Depth Effect Blobs */
+.depth-blob {
+  @apply absolute rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-blob;
+  pointer-events: none;
+  z-index: 0;
+}
+
+@keyframes blob {
+  0% {
+    transform: translate(0px, 0px) scale(1);
+  }
+
+  33% {
+    transform: translate(30px, -50px) scale(1.1);
+  }
+
+  66% {
+    transform: translate(-20px, 20px) scale(0.9);
+  }
+
+  100% {
+    transform: translate(0px, 0px) scale(1);
+  }
+}
+
+.animate-blob {
+  animation: blob 7s infinite;
+}
+
+.animation-delay-2000 {
+  animation-delay: 2s;
+}
+
+.animation-delay-4000 {
+  animation-delay: 4s;
+}
+
+/* Neumorphism Utilities (Base color: #F7F8FA) */
+.neu-flat {
+  background: #F7F8FA;
+  box-shadow: 5px 5px 10px #d1d5db, -5px -5px 10px #ffffff;
+  border: none;
+}
+
+.neu-pressed {
+  background: #F7F8FA;
+  box-shadow: inset 5px 5px 10px #d1d5db, inset -5px -5px 10px #ffffff;
+  border: none;
+}
+
+.neu-btn {
+  @apply px-4 py-2 rounded-xl text-slate-600 font-medium transition-all duration-300;
+  background: #F7F8FA;
+  box-shadow: 6px 6px 12px #d1d9e6, -6px -6px 12px #ffffff;
+}
+
+.neu-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 8px 8px 16px #d1d9e6, -8px -8px 16px #ffffff;
+}
+
+.neu-btn:active {
+  transform: translateY(0);
+  box-shadow: inset 4px 4px 8px #d1d9e6, inset -4px -4px 8px #ffffff;
+}
+
+.neu-btn-active {
+  @apply text-blue-600;
+  background: #F7F8FA;
+  box-shadow: inset 4px 4px 8px #d1d9e6, inset -4px -4px 8px #ffffff, 0 0 15px rgba(37, 99, 235, 0.3);
+}
+
+/* Neonmorphic Utilities */
+.neon-glow-blue {
+  box-shadow: 0 0 12px rgba(37, 99, 235, 0.4), 0 0 20px rgba(37, 99, 235, 0.2);
+}
+
+.neon-glow-btn {
+  @apply transition-all duration-300;
+}
+
+.neon-glow-btn:hover {
+  box-shadow: 0 0 15px rgba(37, 99, 235, 0.5), 0 0 25px rgba(37, 99, 235, 0.2);
+}
+
+.neon-glow-active {
+  box-shadow: inset 2px 2px 5px rgba(0, 0, 0, 0.05), 0 0 15px rgba(37, 99, 235, 0.4);
+}
+
+.neu-input {
+  @apply w-full rounded-xl px-4 py-3 text-sm text-slate-700 outline-none transition-all duration-300;
+  background: #F7F8FA;
+  box-shadow: inset 5px 5px 10px #d1d9e6, inset -5px -5px 10px #ffffff;
+}
+
+.neu-input:focus {
+  box-shadow: inset 2px 2px 5px #d1d9e6, inset -2px -2px 5px #ffffff, 0 0 0 2px rgba(59, 130, 246, 0.1);
+}
+
+/* Table Header Visibility Improvements */
+thead th {
+  font-weight: 900 !important;
+  color: #0f172a !important;
+  /* slate-900 for maximum contrast */
+  backdrop-filter: none !important;
+  /* Remove blur effect */
+}
+
+/* Improve background opacity for better contrast - fully opaque */
+thead tr {
+  background-color: #e2e8f0 !important;
+  /* Solid slate-200 */
+  backdrop-filter: none !important;
+  /* Remove blur effect */
+}
+
+/* Specific color improvements for colored headers - fully opaque */
+thead th[class*="text-blue"] {
+  color: #1e3a8a !important;
+  /* blue-900 */
+  background-color: #dbeafe !important;
+  /* Solid blue-100 */
+}
+
+thead th[class*="text-emerald"] {
+  color: #064e3b !important;
+  /* emerald-900 */
+  background-color: #d1fae5 !important;
+  /* Solid emerald-100 */
+}
+
+thead th[class*="text-purple"] {
+  color: #581c87 !important;
+  /* purple-900 */
+  background-color: #f3e8ff !important;
+  /* Solid purple-100 */
+}
+
+/* Improve border visibility */
+thead th {
+  border-color: #cbd5e1 !important;
+  /* slate-300 for better border visibility */
+}
+
+/* Navette Table Styles from Collaborateurs Page */
+.navette-table-collaborateurs tbody tr {
+  background: transparent !important;
+  transition: all 0.2s ease;
+}
+
+.navette-table-collaborateurs tbody tr:hover {
+  background: rgba(255, 255, 255, 0.4) !important;
+}
+
+.navette-table-collaborateurs thead th {
+  background: rgba(248, 250, 252, 0.4);
+  backdrop-filter: blur(4px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  padding: 1rem 1.5rem;
+  font-size: 10px;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: #64748b;
+}
