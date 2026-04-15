@@ -389,25 +389,7 @@ export async function generatePDFForDemandes(
             console.error("Erreur lors de l'intégration du logo:", error);
         }
 
-        // Logo PROMES à droite (aligné verticalement avec le logo de gauche)
-        try {
-            const promesPath = path.join(process.cwd(), "public", "promes.jpg");
-            if (fs.existsSync(promesPath)) {
-                const promesBytes = fs.readFileSync(promesPath);
-                const promes = await pdfDoc.embedJpg(promesBytes);
-                const cm = 28.3465;
-                const w = 2 * cm;
-                const h = w * (promes.height / promes.width);
-                page.drawImage(promes, {
-                    x: marginX + contentWidth - w - 5,
-                    y: cursorY - (h / 2),
-                    width: w,
-                    height: h,
-                });
-            }
-        } catch (error) {
-            console.error("Erreur lors de l'intégration du logo PROMES:", error);
-        }
+        // Logo d'entreprise à droite (masqué pour modèle générique)
 
         // Titre principal (centré, sans bloc de fond)
         const title = labelForType(d.type);
@@ -422,11 +404,11 @@ export async function generatePDFForDemandes(
             const infoX = marginX + 5 + logoW + 15; // Position à droite de l'image logo
             let infoY = cursorY + 10; // Aligné avec le haut de l'image
 
-            page.drawText("CERES/PROMES", { x: infoX, y: infoY, size: 9, font: bold });
+            page.drawText("[NOM ENTREPRISE]", { x: infoX, y: infoY, size: 9, font: bold });
             infoY -= 12;
-            page.drawText("NIF : 4000 232 696", { x: infoX, y: infoY, size: 9, font });
+            page.drawText("NIF : [NIF]", { x: infoX, y: infoY, size: 9, font });
             infoY -= 12;
-            page.drawText("STAT : 88991 11 2013 0 03715", { x: infoX, y: infoY, size: 9, font });
+            page.drawText("STAT : [STAT]", { x: infoX, y: infoY, size: 9, font });
             infoY -= 12;
             page.drawText(`N° BC : ${sanitizeTextForPDF(d.numeroBonCommande) || "-"}`, { x: infoX, y: infoY, size: 9, font });
         }

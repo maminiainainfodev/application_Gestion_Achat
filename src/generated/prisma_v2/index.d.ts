@@ -11124,6 +11124,7 @@ export namespace Prisma {
     dateFinalisation: Date | null
     isAPGenere: boolean | null
     isBCGenere: boolean | null
+    isAPExporte: boolean | null
     reference: string | null
   }
 
@@ -11157,6 +11158,7 @@ export namespace Prisma {
     dateFinalisation: Date | null
     isAPGenere: boolean | null
     isBCGenere: boolean | null
+    isAPExporte: boolean | null
     reference: string | null
   }
 
@@ -11190,6 +11192,7 @@ export namespace Prisma {
     dateFinalisation: number
     isAPGenere: number
     isBCGenere: number
+    isAPExporte: number
     reference: number
     _all: number
   }
@@ -11247,6 +11250,7 @@ export namespace Prisma {
     dateFinalisation?: true
     isAPGenere?: true
     isBCGenere?: true
+    isAPExporte?: true
     reference?: true
   }
 
@@ -11280,6 +11284,7 @@ export namespace Prisma {
     dateFinalisation?: true
     isAPGenere?: true
     isBCGenere?: true
+    isAPExporte?: true
     reference?: true
   }
 
@@ -11313,6 +11318,7 @@ export namespace Prisma {
     dateFinalisation?: true
     isAPGenere?: true
     isBCGenere?: true
+    isAPExporte?: true
     reference?: true
     _all?: true
   }
@@ -11433,6 +11439,7 @@ export namespace Prisma {
     dateFinalisation: Date | null
     isAPGenere: boolean
     isBCGenere: boolean
+    isAPExporte: boolean
     reference: string | null
     _count: DemandeurCountAggregateOutputType | null
     _avg: DemandeurAvgAggregateOutputType | null
@@ -11485,6 +11492,7 @@ export namespace Prisma {
     dateFinalisation?: boolean
     isAPGenere?: boolean
     isBCGenere?: boolean
+    isAPExporte?: boolean
     reference?: boolean
     auteur?: boolean | Demandeur$auteurArgs<ExtArgs>
     budget?: boolean | Demandeur$budgetArgs<ExtArgs>
@@ -11525,10 +11533,11 @@ export namespace Prisma {
     dateFinalisation?: boolean
     isAPGenere?: boolean
     isBCGenere?: boolean
+    isAPExporte?: boolean
     reference?: boolean
   }
 
-  export type DemandeurOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "auteurMatricule" | "type" | "etapeActuelle" | "numero" | "objet" | "description" | "motif" | "quantite" | "fournisseurID" | "pu" | "montant" | "devis" | "pieceJointe" | "justificationChoix" | "imputationComptable" | "activite" | "codeTIGER" | "modePaiement" | "paiementDetail" | "numeroBonCommande" | "dateLivraison" | "versQui" | "statut" | "budgetID" | "dateDepot" | "dateFinalisation" | "isAPGenere" | "isBCGenere" | "reference", ExtArgs["result"]["demandeur"]>
+  export type DemandeurOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "auteurMatricule" | "type" | "etapeActuelle" | "numero" | "objet" | "description" | "motif" | "quantite" | "fournisseurID" | "pu" | "montant" | "devis" | "pieceJointe" | "justificationChoix" | "imputationComptable" | "activite" | "codeTIGER" | "modePaiement" | "paiementDetail" | "numeroBonCommande" | "dateLivraison" | "versQui" | "statut" | "budgetID" | "dateDepot" | "dateFinalisation" | "isAPGenere" | "isBCGenere" | "isAPExporte" | "reference", ExtArgs["result"]["demandeur"]>
   export type DemandeurInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     auteur?: boolean | Demandeur$auteurArgs<ExtArgs>
     budget?: boolean | Demandeur$budgetArgs<ExtArgs>
@@ -11575,6 +11584,7 @@ export namespace Prisma {
       dateFinalisation: Date | null
       isAPGenere: boolean
       isBCGenere: boolean
+      isAPExporte: boolean
       reference: string | null
     }, ExtArgs["result"]["demandeur"]>
     composites: {}
@@ -11978,6 +11988,7 @@ export namespace Prisma {
     readonly dateFinalisation: FieldRef<"Demandeur", 'DateTime'>
     readonly isAPGenere: FieldRef<"Demandeur", 'Boolean'>
     readonly isBCGenere: FieldRef<"Demandeur", 'Boolean'>
+    readonly isAPExporte: FieldRef<"Demandeur", 'Boolean'>
     readonly reference: FieldRef<"Demandeur", 'String'>
   }
     
@@ -13602,6 +13613,7 @@ export namespace Prisma {
     dateFinalisation: 'dateFinalisation',
     isAPGenere: 'isAPGenere',
     isBCGenere: 'isBCGenere',
+    isAPExporte: 'isAPExporte',
     reference: 'reference'
   };
 
@@ -13916,16 +13928,16 @@ export namespace Prisma {
 
   export type FournisseurWhereUniqueInput = Prisma.AtLeast<{
     id?: number
-    nif?: string
-    cin?: string
     AND?: FournisseurWhereInput | FournisseurWhereInput[]
     OR?: FournisseurWhereInput[]
     NOT?: FournisseurWhereInput | FournisseurWhereInput[]
     nom?: StringNullableFilter<"Fournisseur"> | string | null
     adresse?: StringNullableFilter<"Fournisseur"> | string | null
     nomCheque?: StringNullableFilter<"Fournisseur"> | string | null
+    nif?: StringNullableFilter<"Fournisseur"> | string | null
+    cin?: StringNullableFilter<"Fournisseur"> | string | null
     demandes?: DemandeurListRelationFilter
-  }, "id" | "nif" | "cin">
+  }, "id">
 
   export type FournisseurOrderByWithAggregationInput = {
     id?: SortOrder
@@ -14402,6 +14414,7 @@ export namespace Prisma {
     dateFinalisation?: DateTimeNullableFilter<"Demandeur"> | Date | string | null
     isAPGenere?: BoolFilter<"Demandeur"> | boolean
     isBCGenere?: BoolFilter<"Demandeur"> | boolean
+    isAPExporte?: BoolFilter<"Demandeur"> | boolean
     reference?: StringNullableFilter<"Demandeur"> | string | null
     auteur?: XOR<CollaborateurNullableScalarRelationFilter, CollaborateurWhereInput> | null
     budget?: XOR<BudgetNullableScalarRelationFilter, BudgetWhereInput> | null
@@ -14439,6 +14452,7 @@ export namespace Prisma {
     dateFinalisation?: SortOrderInput | SortOrder
     isAPGenere?: SortOrder
     isBCGenere?: SortOrder
+    isAPExporte?: SortOrder
     reference?: SortOrderInput | SortOrder
     auteur?: CollaborateurOrderByWithRelationInput
     budget?: BudgetOrderByWithRelationInput
@@ -14480,6 +14494,7 @@ export namespace Prisma {
     dateFinalisation?: DateTimeNullableFilter<"Demandeur"> | Date | string | null
     isAPGenere?: BoolFilter<"Demandeur"> | boolean
     isBCGenere?: BoolFilter<"Demandeur"> | boolean
+    isAPExporte?: BoolFilter<"Demandeur"> | boolean
     reference?: StringNullableFilter<"Demandeur"> | string | null
     auteur?: XOR<CollaborateurNullableScalarRelationFilter, CollaborateurWhereInput> | null
     budget?: XOR<BudgetNullableScalarRelationFilter, BudgetWhereInput> | null
@@ -14517,6 +14532,7 @@ export namespace Prisma {
     dateFinalisation?: SortOrderInput | SortOrder
     isAPGenere?: SortOrder
     isBCGenere?: SortOrder
+    isAPExporte?: SortOrder
     reference?: SortOrderInput | SortOrder
     _count?: DemandeurCountOrderByAggregateInput
     _avg?: DemandeurAvgOrderByAggregateInput
@@ -14558,6 +14574,7 @@ export namespace Prisma {
     dateFinalisation?: DateTimeNullableWithAggregatesFilter<"Demandeur"> | Date | string | null
     isAPGenere?: BoolWithAggregatesFilter<"Demandeur"> | boolean
     isBCGenere?: BoolWithAggregatesFilter<"Demandeur"> | boolean
+    isAPExporte?: BoolWithAggregatesFilter<"Demandeur"> | boolean
     reference?: StringNullableWithAggregatesFilter<"Demandeur"> | string | null
   }
 
@@ -15167,6 +15184,7 @@ export namespace Prisma {
     dateFinalisation?: Date | string | null
     isAPGenere?: boolean
     isBCGenere?: boolean
+    isAPExporte?: boolean
     reference?: string | null
     auteur?: CollaborateurCreateNestedOneWithoutDemandesInput
     budget?: BudgetCreateNestedOneWithoutDemandesInput
@@ -15204,6 +15222,7 @@ export namespace Prisma {
     dateFinalisation?: Date | string | null
     isAPGenere?: boolean
     isBCGenere?: boolean
+    isAPExporte?: boolean
     reference?: string | null
     historique?: HistoriqueValidationUncheckedCreateNestedManyWithoutDemandeurInput
   }
@@ -15234,6 +15253,7 @@ export namespace Prisma {
     dateFinalisation?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     isAPGenere?: BoolFieldUpdateOperationsInput | boolean
     isBCGenere?: BoolFieldUpdateOperationsInput | boolean
+    isAPExporte?: BoolFieldUpdateOperationsInput | boolean
     reference?: NullableStringFieldUpdateOperationsInput | string | null
     auteur?: CollaborateurUpdateOneWithoutDemandesNestedInput
     budget?: BudgetUpdateOneWithoutDemandesNestedInput
@@ -15271,6 +15291,7 @@ export namespace Prisma {
     dateFinalisation?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     isAPGenere?: BoolFieldUpdateOperationsInput | boolean
     isBCGenere?: BoolFieldUpdateOperationsInput | boolean
+    isAPExporte?: BoolFieldUpdateOperationsInput | boolean
     reference?: NullableStringFieldUpdateOperationsInput | string | null
     historique?: HistoriqueValidationUncheckedUpdateManyWithoutDemandeurNestedInput
   }
@@ -15305,6 +15326,7 @@ export namespace Prisma {
     dateFinalisation?: Date | string | null
     isAPGenere?: boolean
     isBCGenere?: boolean
+    isAPExporte?: boolean
     reference?: string | null
   }
 
@@ -15334,6 +15356,7 @@ export namespace Prisma {
     dateFinalisation?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     isAPGenere?: BoolFieldUpdateOperationsInput | boolean
     isBCGenere?: BoolFieldUpdateOperationsInput | boolean
+    isAPExporte?: BoolFieldUpdateOperationsInput | boolean
     reference?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
@@ -15367,6 +15390,7 @@ export namespace Prisma {
     dateFinalisation?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     isAPGenere?: BoolFieldUpdateOperationsInput | boolean
     isBCGenere?: BoolFieldUpdateOperationsInput | boolean
+    isAPExporte?: BoolFieldUpdateOperationsInput | boolean
     reference?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
@@ -16166,6 +16190,7 @@ export namespace Prisma {
     dateFinalisation?: SortOrder
     isAPGenere?: SortOrder
     isBCGenere?: SortOrder
+    isAPExporte?: SortOrder
     reference?: SortOrder
   }
 
@@ -16210,6 +16235,7 @@ export namespace Prisma {
     dateFinalisation?: SortOrder
     isAPGenere?: SortOrder
     isBCGenere?: SortOrder
+    isAPExporte?: SortOrder
     reference?: SortOrder
   }
 
@@ -16243,6 +16269,7 @@ export namespace Prisma {
     dateFinalisation?: SortOrder
     isAPGenere?: SortOrder
     isBCGenere?: SortOrder
+    isAPExporte?: SortOrder
     reference?: SortOrder
   }
 
@@ -17883,6 +17910,7 @@ export namespace Prisma {
     dateFinalisation?: Date | string | null
     isAPGenere?: boolean
     isBCGenere?: boolean
+    isAPExporte?: boolean
     reference?: string | null
     auteur?: CollaborateurCreateNestedOneWithoutDemandesInput
     budget?: BudgetCreateNestedOneWithoutDemandesInput
@@ -17918,6 +17946,7 @@ export namespace Prisma {
     dateFinalisation?: Date | string | null
     isAPGenere?: boolean
     isBCGenere?: boolean
+    isAPExporte?: boolean
     reference?: string | null
     historique?: HistoriqueValidationUncheckedCreateNestedManyWithoutDemandeurInput
   }
@@ -17981,6 +18010,7 @@ export namespace Prisma {
     dateFinalisation?: DateTimeNullableFilter<"Demandeur"> | Date | string | null
     isAPGenere?: BoolFilter<"Demandeur"> | boolean
     isBCGenere?: BoolFilter<"Demandeur"> | boolean
+    isAPExporte?: BoolFilter<"Demandeur"> | boolean
     reference?: StringNullableFilter<"Demandeur"> | string | null
   }
 
@@ -18286,6 +18316,7 @@ export namespace Prisma {
     dateFinalisation?: Date | string | null
     isAPGenere?: boolean
     isBCGenere?: boolean
+    isAPExporte?: boolean
     reference?: string | null
     budget?: BudgetCreateNestedOneWithoutDemandesInput
     fournisseur?: FournisseurCreateNestedOneWithoutDemandesInput
@@ -18321,6 +18352,7 @@ export namespace Prisma {
     dateFinalisation?: Date | string | null
     isAPGenere?: boolean
     isBCGenere?: boolean
+    isAPExporte?: boolean
     reference?: string | null
     historique?: HistoriqueValidationUncheckedCreateNestedManyWithoutDemandeurInput
   }
@@ -18900,6 +18932,7 @@ export namespace Prisma {
     dateFinalisation?: Date | string | null
     isAPGenere?: boolean
     isBCGenere?: boolean
+    isAPExporte?: boolean
     reference?: string | null
     auteur?: CollaborateurCreateNestedOneWithoutDemandesInput
     fournisseur?: FournisseurCreateNestedOneWithoutDemandesInput
@@ -18935,6 +18968,7 @@ export namespace Prisma {
     dateFinalisation?: Date | string | null
     isAPGenere?: boolean
     isBCGenere?: boolean
+    isAPExporte?: boolean
     reference?: string | null
     historique?: HistoriqueValidationUncheckedCreateNestedManyWithoutDemandeurInput
   }
@@ -19248,6 +19282,7 @@ export namespace Prisma {
     dateFinalisation?: Date | string | null
     isAPGenere?: boolean
     isBCGenere?: boolean
+    isAPExporte?: boolean
     reference?: string | null
     auteur?: CollaborateurCreateNestedOneWithoutDemandesInput
     budget?: BudgetCreateNestedOneWithoutDemandesInput
@@ -19284,6 +19319,7 @@ export namespace Prisma {
     dateFinalisation?: Date | string | null
     isAPGenere?: boolean
     isBCGenere?: boolean
+    isAPExporte?: boolean
     reference?: string | null
   }
 
@@ -19371,6 +19407,7 @@ export namespace Prisma {
     dateFinalisation?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     isAPGenere?: BoolFieldUpdateOperationsInput | boolean
     isBCGenere?: BoolFieldUpdateOperationsInput | boolean
+    isAPExporte?: BoolFieldUpdateOperationsInput | boolean
     reference?: NullableStringFieldUpdateOperationsInput | string | null
     auteur?: CollaborateurUpdateOneWithoutDemandesNestedInput
     budget?: BudgetUpdateOneWithoutDemandesNestedInput
@@ -19407,6 +19444,7 @@ export namespace Prisma {
     dateFinalisation?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     isAPGenere?: BoolFieldUpdateOperationsInput | boolean
     isBCGenere?: BoolFieldUpdateOperationsInput | boolean
+    isAPExporte?: BoolFieldUpdateOperationsInput | boolean
     reference?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
@@ -19604,6 +19642,7 @@ export namespace Prisma {
     dateFinalisation?: Date | string | null
     isAPGenere?: boolean
     isBCGenere?: boolean
+    isAPExporte?: boolean
     reference?: string | null
   }
 
@@ -19633,6 +19672,7 @@ export namespace Prisma {
     dateFinalisation?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     isAPGenere?: BoolFieldUpdateOperationsInput | boolean
     isBCGenere?: BoolFieldUpdateOperationsInput | boolean
+    isAPExporte?: BoolFieldUpdateOperationsInput | boolean
     reference?: NullableStringFieldUpdateOperationsInput | string | null
     auteur?: CollaborateurUpdateOneWithoutDemandesNestedInput
     budget?: BudgetUpdateOneWithoutDemandesNestedInput
@@ -19668,6 +19708,7 @@ export namespace Prisma {
     dateFinalisation?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     isAPGenere?: BoolFieldUpdateOperationsInput | boolean
     isBCGenere?: BoolFieldUpdateOperationsInput | boolean
+    isAPExporte?: BoolFieldUpdateOperationsInput | boolean
     reference?: NullableStringFieldUpdateOperationsInput | string | null
     historique?: HistoriqueValidationUncheckedUpdateManyWithoutDemandeurNestedInput
   }
@@ -19701,6 +19742,7 @@ export namespace Prisma {
     dateFinalisation?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     isAPGenere?: BoolFieldUpdateOperationsInput | boolean
     isBCGenere?: BoolFieldUpdateOperationsInput | boolean
+    isAPExporte?: BoolFieldUpdateOperationsInput | boolean
     reference?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
@@ -19800,6 +19842,7 @@ export namespace Prisma {
     dateFinalisation?: Date | string | null
     isAPGenere?: boolean
     isBCGenere?: boolean
+    isAPExporte?: boolean
     reference?: string | null
   }
 
@@ -19865,6 +19908,7 @@ export namespace Prisma {
     dateFinalisation?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     isAPGenere?: BoolFieldUpdateOperationsInput | boolean
     isBCGenere?: BoolFieldUpdateOperationsInput | boolean
+    isAPExporte?: BoolFieldUpdateOperationsInput | boolean
     reference?: NullableStringFieldUpdateOperationsInput | string | null
     budget?: BudgetUpdateOneWithoutDemandesNestedInput
     fournisseur?: FournisseurUpdateOneWithoutDemandesNestedInput
@@ -19900,6 +19944,7 @@ export namespace Prisma {
     dateFinalisation?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     isAPGenere?: BoolFieldUpdateOperationsInput | boolean
     isBCGenere?: BoolFieldUpdateOperationsInput | boolean
+    isAPExporte?: BoolFieldUpdateOperationsInput | boolean
     reference?: NullableStringFieldUpdateOperationsInput | string | null
     historique?: HistoriqueValidationUncheckedUpdateManyWithoutDemandeurNestedInput
   }
@@ -19933,6 +19978,7 @@ export namespace Prisma {
     dateFinalisation?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     isAPGenere?: BoolFieldUpdateOperationsInput | boolean
     isBCGenere?: BoolFieldUpdateOperationsInput | boolean
+    isAPExporte?: BoolFieldUpdateOperationsInput | boolean
     reference?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
@@ -20058,6 +20104,7 @@ export namespace Prisma {
     dateFinalisation?: Date | string | null
     isAPGenere?: boolean
     isBCGenere?: boolean
+    isAPExporte?: boolean
     reference?: string | null
   }
 
@@ -20087,6 +20134,7 @@ export namespace Prisma {
     dateFinalisation?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     isAPGenere?: BoolFieldUpdateOperationsInput | boolean
     isBCGenere?: BoolFieldUpdateOperationsInput | boolean
+    isAPExporte?: BoolFieldUpdateOperationsInput | boolean
     reference?: NullableStringFieldUpdateOperationsInput | string | null
     auteur?: CollaborateurUpdateOneWithoutDemandesNestedInput
     fournisseur?: FournisseurUpdateOneWithoutDemandesNestedInput
@@ -20122,6 +20170,7 @@ export namespace Prisma {
     dateFinalisation?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     isAPGenere?: BoolFieldUpdateOperationsInput | boolean
     isBCGenere?: BoolFieldUpdateOperationsInput | boolean
+    isAPExporte?: BoolFieldUpdateOperationsInput | boolean
     reference?: NullableStringFieldUpdateOperationsInput | string | null
     historique?: HistoriqueValidationUncheckedUpdateManyWithoutDemandeurNestedInput
   }
@@ -20155,6 +20204,7 @@ export namespace Prisma {
     dateFinalisation?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     isAPGenere?: BoolFieldUpdateOperationsInput | boolean
     isBCGenere?: BoolFieldUpdateOperationsInput | boolean
+    isAPExporte?: BoolFieldUpdateOperationsInput | boolean
     reference?: NullableStringFieldUpdateOperationsInput | string | null
   }
 

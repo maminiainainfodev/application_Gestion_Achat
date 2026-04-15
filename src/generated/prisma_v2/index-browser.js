@@ -219,6 +219,7 @@ exports.Prisma.DemandeurScalarFieldEnum = {
   dateFinalisation: 'dateFinalisation',
   isAPGenere: 'isAPGenere',
   isBCGenere: 'isBCGenere',
+  isAPExporte: 'isAPExporte',
   reference: 'reference'
 };
 

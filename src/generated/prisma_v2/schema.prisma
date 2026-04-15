@@ -28,8 +28,8 @@ model Fournisseur {
   nom       String?     @map("Nom")
   adresse   String?     @map("Adresse") @db.Text
   nomCheque String?     @map("NomCheque")
-  nif       String?     @unique @map("NIF")
-  cin       String?     @unique @map("CIN")
+  nif       String?     @map("NIF")
+  cin       String?     @map("CIN")
   demandes  Demandeur[]
 
   @@map("fournisseur")
@@ -158,6 +158,7 @@ model Demandeur {
   dateFinalisation    DateTime?              @map("DateFinalisation")
   isAPGenere          Boolean                @default(false) @map("IsAPGenere")
   isBCGenere          Boolean                @default(false) @map("IsBCGenere")
+  isAPExporte         Boolean                @default(false) @map("IsAPExporte")
   reference           String?                @map("Reference")
   auteur              Collaborateur?         @relation("AuteurDemandes", fields: [auteurMatricule], references: [matricule])
   budget              Budget?                @relation(fields: [budgetID], references: [id])

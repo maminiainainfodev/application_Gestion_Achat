@@ -1,48 +1,44 @@
-GUIDE D'UTILISATION - APPLICATION NAVETTE
+GUIDE D'UTILISATION - APPLICATION NAVETTE (VERSION GÉNÉRIQUE)
 
-Bienvenue dans le guide d'utilisation de l'Application Navette. Ce document explique le fonctionnement général de l'application et les étapes de validation.
+Bienvenue dans le guide d'utilisation de l'Application Navette. Ce document explique le fonctionnement général de l'application et liste les comptes de test.
 
 1. ACCÈS À L'APPLICATION
 -----------------------------------------
 URL : http://localhost:3001
 Connectez-vous en utilisant l'un des comptes correspondants à votre rôle.
 
-Comptes de test disponibles :
-- Administrateur (Gestion totale) : ADMIN001 / admin123
-- Chef Service (Validation N1) : CS001 / test123
-- Chargée Achat (Traitement) : CA001 / test123
-- Responsable Financier (Validation Finale) : RF001 / test123
-- Utilisateur standard (Demandeur) : TEST001 / test123
+COMPTES DE TEST (Logins) : 
+Tous les rôles ont pour mot de passe : test1234
+(sauf l'administrateur dont le mot de passe est : admin)
+
+- ADMINISTRATEUR      (Administrateur Syst.)   -> Mot de passe: admin
+- CHEF_SERVICE        (Chef de service)        -> Mot de passe: test1234
+- CHEF_DEPARTEMENT    (Chef de département)    -> Mot de passe: test1234
+- CHARGEE_ACHAT       (Chargée d'achat)        -> Mot de passe: test1234
+- DIRECTRICE          (Directrice Générale)    -> Mot de passe: test1234
+- RESP_FINANCIER      (DRF)                    -> Mot de passe: test1234
+- DEMANDEUR           (Employé Standard)       -> Mot de passe: test1234
 
 2. FONCTIONNEMENT ET WORKFLOW DE VALIDATION
 -----------------------------------------
 L'application navette permet de dématérialiser les demandes et de suivre leur validation selon un circuit (workflow) bien défini.
 
 ÉTAPE 1 : CRÉATION DE LA DEMANDE
-- Rôle : Utilisateur standard / Demandeur
+- Rôle : Demandeur
 - Action : L'utilisateur se connecte, remplit le formulaire de demande (budget, fournitures, etc.) et soumet. 
-- La demande passe alors en statut "En attente de validation Chef de Service".
 
-ÉTAPE 2 : VALIDATION DU CHEF DE SERVICE
-- Rôle : Chef de Service
-- Action : Le Chef de service consulte les demandes de son service. Il peut valider, rejeter ou demander des modifications.
-- Si validée, la demande est transmise à l'étape suivante.
+ÉTAPE 2 : VALIDATION HIERARCHIQUE
+- Rôle : Chef de service / Chef de département
+- Action : Consulter les demandes de son service. Il peut valider, rejeter ou demander des modifications.
 
 ÉTAPE 3 : TRAITEMENT ACHAT
-- Rôle : Chargée Achat
-- Action : Réception de la demande validée par le Chef de Service. La Chargée d'achat traite la demande, ajoute les informations fournisseurs ou budgétaires si nécessaire, et valide.
+- Rôle : Chargée d'achat
+- Action : La Chargée d'achat traite la demande validée, ajoute les informations fournisseurs ou budgétaires si nécessaire, et valide.
 
-ÉTAPE 4 : VALIDATION FINANCIÈRE
-- Rôle : Responsable Financier
-- Action : Validation budgétaire et financière finale. Une fois validée par le RF, la demande est officiellement approuvée.
+ÉTAPE 4 : VALIDATION FINANCIÈRE / DIRECTION
+- Rôle : DRF / Directrice
+- Action : Validation budgétaire finale. Une fois validée par la direction, la demande est officiellement approuvée.
 
-3. NOTIFICATIONS (Optionnel)
+3. ADMINISTRATION
 -----------------------------------------
-L'application est configurée pour envoyer des notifications par e-mail à chaque changement de statut ou étape de validation (si le SMTP est configuré).
-
-4. ADMINISTRATION
------------------------------------------
-L'Administrateur a accès à l'ensemble du système pour :
-- Créer et gérer les utilisateurs (Comptes Utilisateurs, Collaborateurs).
-- Gérer la structure (Services, Fonctions, Budgets, Fournisseurs).
-- Assurer le suivi global des workflows en cas de blocage.
+L'Administrateur peut créer et gérer les utilisateurs, affecter des rôles, et gérer les structures (services, etc.).
