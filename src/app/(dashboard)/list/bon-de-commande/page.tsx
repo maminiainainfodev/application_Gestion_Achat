@@ -201,9 +201,6 @@ async function getBonsDeCommande(
     console.error('Erreur lors de la récupération des bons de commande:', error);
     return {
       data: [],
-      total: 0,
-      totalPages: 0,
-      currentPage: 1,
     };
   }
 }

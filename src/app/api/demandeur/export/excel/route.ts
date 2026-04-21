@@ -61,7 +61,7 @@ export async function POST(request: Request) {
 
         const excelBuffer = generateExcelList(demandes as any);
 
-        return new NextResponse(excelBuffer, {
+        return new NextResponse(new Uint8Array(excelBuffer) as any, {
             headers: {
                 "Content-Type": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
                 "Content-Disposition": `attachment; filename="export_excel_${new Date().toISOString().split('T')[0]}.xlsx"`,

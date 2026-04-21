@@ -115,7 +115,7 @@ export async function POST(request: Request) {
     } else {
       pdfBytes = await generatePDFForDemandes(payload as any, { title });
     }
-    return new NextResponse(Buffer.from(pdfBytes), {
+    return new NextResponse(pdfBytes as any, {
       headers: {
         "Content-Type": "application/pdf",
         "Content-Disposition": `attachment; filename="navettes-${ids.join("_")}.pdf"`,

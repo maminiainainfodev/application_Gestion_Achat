@@ -20,7 +20,7 @@ import {
 import PDFModal from "@/components/PDFModal";
 import dynamicImport from "next/dynamic";
 import TableSearch from "@/components/TableSearch";
-import { formatDateTime } from "@/lib/workflowNotifications";
+import { formatNavetteType } from "@/lib/workflowNotifications";
 
 const FournisseurForm = dynamicImport(() => import("@/components/forms/fournisseurForm"), {
     loading: () => <p>Chargement...</p>,

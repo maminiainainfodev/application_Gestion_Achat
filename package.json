@@ -5,7 +5,9 @@
   "scripts": {
     "dev": "next dev --webpack -H 0.0.0.0",
     "build": "next build",
-    "start": "next start"
+    "build:test": "cross-env USE_MOCK_DB=true next build",
+    "start": "next start",
+    "type-check": "tsc --noEmit"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.9.0",
@@ -37,6 +39,7 @@
     "@types/node": "20.19.24",
     "@types/react": "^18",
     "@types/react-dom": "^18",
+    "cross-env": "^10.1.0",
     "eslint": "^10.0.2",
     "eslint-config-next": "^16.1.6",
     "postcss": "^8",

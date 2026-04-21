@@ -1,3 +1,8 @@
+import path from 'path';
+import { fileURLToPath } from 'url';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
@@ -7,7 +12,8 @@ const nextConfig = {
   // Configuration pour Ubuntu/Linux
   serverExternalPackages: ['@prisma/client'],
 
-  // Optimisation pour le développement
+  // Webpack : en mode test (USE_MOCK_DB=true), on remplace le vrai client
+  // Prisma par le mock JSON afin de pouvoir builder sans MySQL
   webpack: (config, { isServer }) => {
     if (!isServer) {
       config.resolve.fallback = {
@@ -15,19 +21,16 @@ const nextConfig = {
         fs: false,
       };
     }
+
     return config;
   },
-  // Turbopack configuration to avoid error when webpack is also configured
-  turbopack: {
-
-  },
-  experimental: {
-    // Optimisation pour les environnements Linux
-  },
-  // Variables d'environnement pour Ubuntu
+  // Turbopack configuration
+  turbopack: {},
+  experimental: {},
   env: {
     CUSTOM_KEY: process.env.CUSTOM_KEY,
   },
 };
 
 export default nextConfig;
+

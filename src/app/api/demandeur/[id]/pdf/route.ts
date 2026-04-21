@@ -164,7 +164,7 @@ export async function GET(
       ? `${customFilename}.pdf`
       : `navette-${demande.numero || demandeId}.pdf`;
 
-    return new NextResponse(Buffer.from(pdfBytes), {
+    return new NextResponse(pdfBytes as any, {
       headers: {
         "Content-Type": "application/pdf",
         "Content-Disposition": `inline; filename="${filename}"`,

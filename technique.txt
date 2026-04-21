@@ -1,0 +1,11 @@
+Fiche Technique de l'Application:
+--------------------------------
+Langages utilisés : TypeScript, JavaScript, HTML, CSS (Tailwind CSS)
+Langage de base de données : SQL
+Base de données utilisée : MySQL
+Workflow Technique : 
+- Framework : Next.js (App Router)
+- ORM : Prisma
+- Gestion des accès : Role-based Access Control (RBAC) via CollaborateurRoles
+- Déploiement : Next.js (next build / next start)
+- Styles : Tailwind CSS pour une interface dynamique et responsive.
