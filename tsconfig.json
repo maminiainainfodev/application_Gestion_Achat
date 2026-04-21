@@ -37,7 +37,8 @@
   ],
   "exclude": [
     "node_modules",
-    "prisma/check-roles.ts",
-    "prisma"
+    "prisma",
+    "src/generated",
+    "src/lib/prisma.ts"
   ]
 }

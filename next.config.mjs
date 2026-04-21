@@ -15,9 +15,9 @@ const nextConfig = {
   // Webpack : configuration pour éviter les erreurs de modules côté client
   webpack: (config, { isServer }) => {
     if (!isServer) {
-      config.resolve.fallback = {
-        ...config.resolve.fallback,
-        fs: false,
+      config.resolve.alias = {
+        ...config.resolve.alias,
+        "@prisma/client": false,
       };
     }
 
