@@ -1,11 +1,8 @@
 /**
- * Client Prisma — wrapper.
+ * Client Prisma — Wrapper global.
  *
- * En mode test (USE_MOCK_DB=true) :
- *   next.config.mjs redirige cet import vers mock-prisma.ts via alias webpack/turbopack
- *
- * En mode normal :
- *   Utilise le vrai client Prisma (MySQL)
+ * Mode Mock (USE_MOCK_DB=true) : Utilise une implémentation en mémoire (mock-prisma).
+ * Mode Réel : Utilise le client Prisma généré (MySQL).
  */
 import { PrismaClient } from '@/generated/prisma_v2/client';
 import mockPrismaClient from './mock-prisma';

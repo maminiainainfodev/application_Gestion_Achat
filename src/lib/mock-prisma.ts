@@ -3,8 +3,8 @@
  *
  * Remplace le vrai client Prisma par une implémentation en mémoire
  * qui lit les données depuis test-data/db.json.
- * Les writes (create/update/delete) modifient uniquement la mémoire
- * (pas de persistance), ce qui convient parfaitement aux tests CI.
+ * Les écritures (create/update/delete) modifient uniquement la mémoire
+ * (pas de persistance), ce qui convient parfaitement aux tests et démos.
  */
 
 import fs from "fs";

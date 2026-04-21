@@ -12,8 +12,7 @@ const nextConfig = {
   // Configuration pour Ubuntu/Linux
   serverExternalPackages: ['@prisma/client'],
 
-  // Webpack : en mode test (USE_MOCK_DB=true), on remplace le vrai client
-  // Prisma par le mock JSON afin de pouvoir builder sans MySQL
+  // Webpack : configuration pour éviter les erreurs de modules côté client
   webpack: (config, { isServer }) => {
     if (!isServer) {
       config.resolve.fallback = {
