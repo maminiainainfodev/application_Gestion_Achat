@@ -1,6 +1,6 @@
-import type { Prisma, PrismaClient, TypeNavette } from "@/generated/prisma_v2";
+import { TypeNavette } from "@/lib/types";
 
-type PrismaLike = PrismaClient | Prisma.TransactionClient;
+type PrismaLike = any;
 
 type CollaborateurContact = {
 	matricule: string;
@@ -200,7 +200,7 @@ async function resolveServiceForAuteur(
 ) {
 	if (!auteur) return null;
 
-	const where: Prisma.ServiceWhereInput | null = auteur.serviceId
+	const where: any = auteur.serviceId
 		? { id: auteur.serviceId }
 		: auteur.serviceAbbrev
 			? { abreviation: auteur.serviceAbbrev }

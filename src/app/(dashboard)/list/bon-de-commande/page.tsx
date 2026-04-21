@@ -27,7 +27,7 @@ type BonDeCommandeData = {
   isBCGenere: boolean;
 };
 
-type DemandeWithRelations = Prisma.DemandeurGetPayload<{
+type DemandeWithRelations = any<{
   include: {
     auteur: {
       include: {
@@ -113,7 +113,7 @@ async function getBonsDeCommande(
   try {
 
     // Build where clause for search and filters
-    const where: Prisma.DemandeurWhereInput = {
+    const where: any = {
       type: "ACHAT",
       statut: "VALIDEE",
     };
@@ -145,7 +145,7 @@ async function getBonsDeCommande(
 
 
     // Build orderBy clause
-    let orderBy: Prisma.DemandeurOrderByWithRelationInput = {
+    let orderBy: any = {
       dateDepot: 'desc',
     };
 

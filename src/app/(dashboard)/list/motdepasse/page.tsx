@@ -35,7 +35,7 @@ type CompteUtilisateur = {
   MotDePasse: string;
 };
 
-type CompteWithCollaborateur = Prisma.ComptesUtilisateursGetPayload<{
+type CompteWithCollaborateur = any<{
   include: {
     collaborateur: {
       select: {
@@ -58,7 +58,7 @@ async function getComptesUtilisateurs(
 }> {
   try {
     const skip = (page - 1) * ITEMS_PER_PAGE;
-    const where: Prisma.ComptesUtilisateursWhereInput = {};
+    const where: any = {};
 
     if (search && search.trim()) {
       const searchTerm = search.trim();

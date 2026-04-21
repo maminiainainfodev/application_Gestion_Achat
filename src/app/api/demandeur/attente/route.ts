@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { cookies } from "next/headers";
 import prisma from "@/lib/prisma";
-import type { Prisma } from "@/generated/prisma_v2";
+import {  } from "@/lib/types";
 import {
   canonicalizeRole,
   getRoleDisplayName,
@@ -126,7 +126,7 @@ export async function GET(request: Request) {
       "EN_MAGASIN",
     ];
 
-    const demandeInclude: Prisma.DemandeurInclude = {
+    const demandeInclude: any = {
       auteur: {
         select: {
           matricule: true,
@@ -314,7 +314,7 @@ async function fetchValidatorDemandes({
   serviceAbbrevs: string[];
   chefTypes: Set<string>;
   pendingStatuses: ("EN_ATTENTE" | "EN_MAGASIN")[];
-  include: Prisma.DemandeurInclude;
+  include: any;
 }) {
   const orConditions: any[] = [];
 

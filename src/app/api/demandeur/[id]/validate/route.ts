@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { cookies } from "next/headers";
-import type { Collaborateur, Demandeur, Service } from "@/generated/prisma_v2";
+import { Collaborateur, Demandeur, Service } from "@/lib/types";
 import prisma from "@/lib/prisma";
 import { generateAutorisationPaiement, generatePDFForDemandes, type DemandePDFData } from "@/lib/pdf";
 import { isEmailConfigured, sendEmail } from "@/lib/mailer";

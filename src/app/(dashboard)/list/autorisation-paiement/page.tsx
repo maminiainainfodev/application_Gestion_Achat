@@ -50,7 +50,7 @@ async function getAutorisationsPaiement(
             ? ["ACHAT"]
             : ["ACHAT", "PAIEMENT", "NOTE_FRAIS", "DRFMS", "DRFME"];
 
-        const where: Prisma.DemandeurWhereInput = {
+        const where: any = {
             type: { in: allowedTypes as any[] },
             statut: "VALIDEE",
         };

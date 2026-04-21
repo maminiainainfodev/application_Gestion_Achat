@@ -14,7 +14,7 @@ type ServiceData = {
   ChefMatricule: string;
 };
 
-type ServiceWithRelations = Prisma.ServiceGetPayload<{
+type ServiceWithRelations = any<{
   include: {
     chef: {
       select: {
@@ -66,7 +66,7 @@ async function getServices(
     const skip = (page - 1) * ITEMS_PER_PAGE;
 
     // Build where clause for search and filters
-    const where: Prisma.ServiceWhereInput = {};
+    const where: any = {};
     
     if (search && search.trim()) {
       const searchTerm = search.trim();
@@ -135,7 +135,7 @@ async function getServices(
     });
 
     // Build orderBy clause
-    let orderBy: Prisma.ServiceOrderByWithRelationInput = {
+    let orderBy: any = {
       id: 'asc',
     };
 

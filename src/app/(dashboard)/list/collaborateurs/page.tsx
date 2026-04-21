@@ -24,7 +24,7 @@ type CollaborateurData = {
     Roles?: string[];
 };
 
-type CollaborateurWithRelations = Prisma.CollaborateurGetPayload<{
+type CollaborateurWithRelations = any<{
     include: {
         service: {
             select: {
@@ -98,7 +98,7 @@ async function getCollaborateurs(
         const skip = (page - 1) * ITEMS_PER_PAGE;
 
         // Build where clause for search and filters
-        const where: Prisma.CollaborateurWhereInput = {};
+        const where: any = {};
 
         if (search && search.trim()) {
             const searchTerm = search.trim();
@@ -176,7 +176,7 @@ async function getCollaborateurs(
         });
 
         // Build orderBy clause - trier par date d'ajout (id) ou par défaut par matricule
-        let orderBy: Prisma.CollaborateurOrderByWithRelationInput = {
+        let orderBy: any = {
             matricule: 'asc',
         };
 

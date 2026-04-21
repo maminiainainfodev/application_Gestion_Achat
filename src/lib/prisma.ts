@@ -1,27 +1,13 @@
 /**
- * Client Prisma — Wrapper global.
- *
- * Mode Mock (USE_MOCK_DB=true) : Utilise une implémentation en mémoire (mock-prisma).
- * Mode Réel : Utilise le client Prisma généré (MySQL).
+ * Couche d'accès aux données (Data Access Layer).
+ * Ce fichier remplace l'ancienne dépendance à Prisma.
+ * Il utilise désormais exclusivement le client Mock (JSON).
  */
-import { PrismaClient } from '@/generated/prisma_v2/client';
-import mockPrismaClient from './mock-prisma';
 
-const prismaClientSingleton = () => {
-  if (process.env.USE_MOCK_DB === 'true') {
-    return mockPrismaClient as unknown as PrismaClient;
-  }
-  return new PrismaClient();
-};
+import mockany from './mock-prisma';
 
-const g = global as typeof global & {
-  prismaGlobal?: ReturnType<typeof prismaClientSingleton>;
-};
-
-const prisma = g.prismaGlobal ?? prismaClientSingleton();
-
-if (process.env.NODE_ENV !== 'production') {
-  g.prismaGlobal = prisma;
-}
+// On exporte le client mock sous le nom générique 'prisma' pour éviter de casser les imports existants,
+// mais il est désormais totalement indépendant du paquet @prisma/client.
+const prisma = mockany;
 
 export default prisma;

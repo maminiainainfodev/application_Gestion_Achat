@@ -382,7 +382,7 @@ function makeTable(tableName: string, getItems: () => any[]) {
 
 // ─── Mock Prisma Client ───────────────────────────────────────────────────────
 
-const mockPrismaClient = {
+const mockany = {
   collaborateur:          makeTable("collaborateurs",          () => db.collaborateurs),
   comptesUtilisateurs:    makeTable("comptesUtilisateurs",     () => db.comptesUtilisateurs),
   roles:                  makeTable("roles",                   () => db.roles),
@@ -398,7 +398,7 @@ const mockPrismaClient = {
   // Transactions simulées (exécution séquentielle)
   $transaction: async (operations: any) => {
     if (typeof operations === "function") {
-      return operations(mockPrismaClient);
+      return operations(mockany);
     }
     return Promise.all(operations);
   },
@@ -409,4 +409,4 @@ const mockPrismaClient = {
   $executeRaw: async () => 0,
 };
 
-export default mockPrismaClient;
+export default mockany;

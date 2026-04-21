@@ -6,21 +6,13 @@ const __dirname = path.dirname(__filename);
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  // Configuration des images
   images: {
     remotePatterns: [{ hostname: "images.pexels.com" }],
   },
-  // Configuration pour Ubuntu/Linux
-  serverExternalPackages: ['@prisma/client'],
 
-  // Webpack : configuration pour éviter les erreurs de modules côté client
-  webpack: (config, { isServer }) => {
-    if (!isServer) {
-      config.resolve.alias = {
-        ...config.resolve.alias,
-        "@prisma/client": false,
-      };
-    }
-
+  // Webpack configuration
+  webpack: (config) => {
     return config;
   },
   // Turbopack configuration

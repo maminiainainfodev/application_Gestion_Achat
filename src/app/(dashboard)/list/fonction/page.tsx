@@ -19,7 +19,7 @@ type FonctionData = {
 };
 
 // Type pour la fonction avec les relations incluses
-type FonctionWithRelations = Prisma.FonctionGetPayload<{
+type FonctionWithRelations = any<{
   include: {
     service: {
       select: {
@@ -84,7 +84,7 @@ async function getFonctions(
     const skip = (page - 1) * ITEMS_PER_PAGE;
 
     // Build where clause for search and filters
-    const where: Prisma.FonctionWhereInput = {};
+    const where: any = {};
     
     if (search && search.trim()) {
       const searchTerm = search.trim();
@@ -166,7 +166,7 @@ async function getFonctions(
     });
 
     // Build orderBy clause
-    let orderBy: Prisma.FonctionOrderByWithRelationInput = {
+    let orderBy: any = {
       id: 'asc',
     };
 
