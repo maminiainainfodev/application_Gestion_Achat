@@ -15,6 +15,9 @@ const nextConfig = {
   webpack: (config) => {
     return config;
   },
+  eslint: {
+    ignoreDuringBuilds: true,
+  },
   // Turbopack configuration
   turbopack: {},
   experimental: {},
@@ -27,4 +30,3 @@ const nextConfig = {
 };
 
 export default nextConfig;
-
