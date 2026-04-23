@@ -27,7 +27,7 @@ type BonDeCommandeData = {
   isBCGenere: boolean;
 };
 
-type DemandeWithRelations = any<{
+type DemandeWithRelations = {
   include: {
     auteur: {
       include: {

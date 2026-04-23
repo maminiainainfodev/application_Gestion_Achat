@@ -30,7 +30,7 @@ SET time_zone = "+00:00";
 CREATE TABLE `budget` (
   `ID` int NOT NULL,
   `CodeBudgetaire` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `MontantDisponible` decimal(15,2) NOT NULL DEFAULT '0.00',
+  `MontantDisponible` Prisma.Decimal(15,2) NOT NULL DEFAULT '0.00',
   `ServiceID` int DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -293,8 +293,8 @@ CREATE TABLE `demandeur` (
   `Motif` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `Quantite` int DEFAULT NULL,
   `FournisseurID` int DEFAULT NULL,
-  `PU` decimal(15,2) DEFAULT NULL,
-  `Montant` decimal(15,2) DEFAULT NULL,
+  `PU` Prisma.Decimal(15,2) DEFAULT NULL,
+  `Montant` Prisma.Decimal(15,2) DEFAULT NULL,
   `Devis` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `PieceJointe` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `JustificationChoix` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,

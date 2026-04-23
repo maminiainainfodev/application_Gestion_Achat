@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import prisma from "@/lib/prisma";
-import { Decimal } from "@prisma/client/runtime/library";
+import { Prisma } from "@prisma/client";
 
 // GET - Récupérer un budget par ID
 export async function GET(
@@ -81,7 +81,7 @@ export async function PUT(
 
     const updateData: any = {
       codeBudgetaire: CodeBudgetaire,
-      montantDisponible: new Decimal(MontantDisponible || 0),
+      montantDisponible: new Prisma.Decimal(MontantDisponible || 0),
       serviceId: ServiceID ? parseInt(ServiceID.toString(), 10) : null,
     };
 

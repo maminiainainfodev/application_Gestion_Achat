@@ -35,7 +35,7 @@ type CompteUtilisateur = {
   MotDePasse: string;
 };
 
-type CompteWithCollaborateur = any<{
+type CompteWithCollaborateur = {
   include: {
     collaborateur: {
       select: {
@@ -118,9 +118,8 @@ async function getComptesUtilisateurs(
           compte.collaborateur?.prenomUsuelle ||
           compte.collaborateur?.prenom ||
           "";
-        const nomComplet = `${compte.collaborateur?.prenom || ""} ${
-          compte.collaborateur?.nom || ""
-        }`.trim();
+        const nomComplet = `${compte.collaborateur?.prenom || ""} ${compte.collaborateur?.nom || ""
+          }`.trim();
 
         return {
           Matricule: compte.matricule_collaborateur,

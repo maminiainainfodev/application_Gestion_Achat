@@ -19,7 +19,7 @@ type FonctionData = {
 };
 
 // Type pour la fonction avec les relations incluses
-type FonctionWithRelations = any<{
+type FonctionWithRelations = {
   include: {
     service: {
       select: {
@@ -68,7 +68,7 @@ const ITEMS_PER_PAGE = 6;
 
 // Fonction pour récupérer les fonctions depuis la base de données avec pagination
 async function getFonctions(
-  page: number = 1, 
+  page: number = 1,
   search?: string,
   filterType?: string,
   filterValue?: string,
@@ -85,7 +85,7 @@ async function getFonctions(
 
     // Build where clause for search and filters
     const where: any = {};
-    
+
     if (search && search.trim()) {
       const searchTerm = search.trim();
       where.OR = [
@@ -181,7 +181,7 @@ async function getFonctions(
         nomFonction: order,
       };
     }
-    
+
     // Récupérer les fonctions paginées
     const fonctions = await prisma.fonction.findMany({
       where,
@@ -253,13 +253,13 @@ const FonctionListPage = async ({ searchParams }: PageProps) => {
   const filterValue = searchParams.filterValue;
   const sortBy = searchParams.sortBy;
   const sortOrder = searchParams.sortOrder as "asc" | "desc" | undefined;
-  
+
   const { data: fonctionsData, totalPages, total, currentPage: page } = await getFonctions(
-    currentPage, 
-    searchQuery, 
-    filterType, 
-    filterValue, 
-    sortBy, 
+    currentPage,
+    searchQuery,
+    filterType,
+    filterValue,
+    sortBy,
     sortOrder
   );
 
@@ -281,17 +281,17 @@ const FonctionListPage = async ({ searchParams }: PageProps) => {
         <div className="flex items-center gap-2">
           {role === "admin" && (
             <>
-              <FormModal 
-                table="fonction" 
-                type="update" 
+              <FormModal
+                table="fonction"
+                type="update"
                 data={item}
                 id={item.ID_Fonction}
               />
-              <FormModal 
-                table="fonction" 
-                type="delete" 
+              <FormModal
+                table="fonction"
+                type="delete"
                 data={item}
-                id={item.ID_Fonction} 
+                id={item.ID_Fonction}
               />
             </>
           )}

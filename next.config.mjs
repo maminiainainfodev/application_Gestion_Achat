@@ -7,6 +7,7 @@ const __dirname = path.dirname(__filename);
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   // Configuration des images
+  output: 'export',
   images: {
     remotePatterns: [{ hostname: "images.pexels.com" }],
   },

@@ -1,122 +1,87 @@
 import { NextResponse } from "next/server";
-import { cookies } from "next/headers";
 import prisma from "@/lib/prisma";
+import { Prisma } from "@prisma/client";
 
 export async function GET(request: Request) {
   try {
-    const cookieStore = await cookies();
-    const matricule = cookieStore.get("matricule")?.value;
-    const role = cookieStore.get("role")?.value;
-
-    if (!matricule || !role) {
-      return NextResponse.json(
-        { success: false, message: "Non authentifié" },
-        { status: 401 }
-      );
-    }
-
     const { searchParams } = new URL(request.url);
-    const modeParam = (searchParams.get("mode") || "").toLowerCase();
-    const mode =
-      modeParam === "demandeur"
-        ? "demandeur"
-        : modeParam === "valideur"
-          ? "valideur"
-          : "all";
+    const search = (searchParams.get("search") || searchParams.get("q") || "").trim();
 
-    // Historique: exclure les demandes EN_ATTENTE
-    // Visibilité:
-    // - Admin: tout l'historique (hors EN_ATTENTE)
-    // - Non-admin: seulement
-    //   * demandes dont il est l'auteur
-    //   * OU demandes où il a validé au moins une étape (historique.valideurMatricule = matricule)
-    const whereClause: any = {};
-
-    // Historique: inclure toutes les demandes, y compris EN_ATTENTE
-    // whereClause.statut = { not: "EN_ATTENTE" }; 
-
-
-    if (mode === "demandeur") {
-      whereClause.auteurMatricule = matricule;
-    } else if (mode === "valideur") {
-      const roleSteps = await prisma.workflowEtapes.findMany({
-        where: { roleRequis: role },
-      });
-
-      const roleStepConditions = roleSteps.map((step) => ({
-        type: step.type,
-        etapeActuelle: { gt: step.etape },
-      }));
-
-      whereClause.OR = [
-        { historique: { some: { valideurMatricule: matricule } } },
-        ...roleStepConditions,
-      ];
-    } else if (role !== "Administrateur") {
-      whereClause.OR = [
-        { auteurMatricule: matricule },
-        { historique: { some: { valideurMatricule: matricule } } },
-      ];
-    }
-
-    const demandes = await prisma.demandeur.findMany({
-      where: whereClause,
-      include: {
-        auteur: {
-          select: {
-            matricule: true,
-            nom: true,
-            prenom: true,
-            prenomUsuelle: true,
-            civilite: true,
-            mailPro: true,
+    const budgets = await prisma.budget.findMany({
+      where: search ? {
+        OR: [
+          { codeBudgetaire: { contains: search } },
+          {
             service: {
-              select: {
-                abreviation: true,
-              },
-            },
-          },
-        },
-        fournisseur: {
+              abreviation: { contains: search }
+            }
+          }
+        ]
+      } : undefined,
+      include: {
+        service: {
           select: {
-            nom: true,
+            id: true,
+            nomService: true,
+            abreviation: true,
           },
-        },
-        historique: {
-          include: {
-            valideur: {
-              select: {
-                matricule: true,
-                nom: true,
-                prenom: true,
-                prenomUsuelle: true,
-              },
-            },
-          },
-          orderBy: { dateValidation: "asc" },
         },
       },
-      orderBy: { dateDepot: "desc" },
+      orderBy: {
+        codeBudgetaire: 'asc',
+      },
     });
 
-    // Convertir les valeurs Decimal en nombres pour le JSON
-    const demandesSerialized = demandes.map((demande) => ({
-      ...demande,
-      pu: demande.pu ? Number(demande.pu) : null,
-      montant: demande.montant ? Number(demande.montant) : null,
-    }));
-
-    return NextResponse.json({ success: true, data: demandesSerialized }, { status: 200 });
-  } catch (error: any) {
-    console.error("Erreur lors de la récupération de l'historique:", error);
+    return NextResponse.json(budgets);
+  } catch (error) {
+    console.error("Erreur lors de la récupération des budgets:", error);
     return NextResponse.json(
-      {
-        success: false,
-        message: "Une erreur est survenue lors de la récupération de l'historique",
-        error: error.message,
-      },
+      { error: "Erreur lors de la récupération des budgets" },
       { status: 500 }
     );
   }
+}
+
+// POST - Créer un nouveau budget
+export async function POST(request: Request) {
+  try {
+    const body = await request.json();
+    const {
+      CodeBudgetaire,
+      MontantDisponible,
+      ServiceID,
+    } = body;
+
+    // Vérifier que le code budgétaire est unique
+    const existing = await prisma.budget.findUnique({
+      where: { codeBudgetaire: CodeBudgetaire },
+    });
+
+    if (existing) {
+      return NextResponse.json(
+        { error: "Un budget avec ce code existe déjà" },
+        { status: 400 }
+      );
+    }
+
+    const budget = await prisma.budget.create({
+      data: {
+        codeBudgetaire: CodeBudgetaire,
+        montantDisponible: new Prisma.import { Prisma } from "@prisma/client"; (MontantDisponible || 0),
+          serviceId: ServiceID ? parseInt(ServiceID.toString(), 10) : null,
+      },
+});
+
+return NextResponse.json(
+  { message: "Budget créé avec succès", data: budget },
+  { status: 201 }
+);
+  } catch (error: any) {
+  console.error("Erreur lors de la création du budget:", error);
+  return NextResponse.json(
+    { error: error.message || "Erreur lors de la création du budget" },
+    { status: 500 }
+  );
+}
 }
 

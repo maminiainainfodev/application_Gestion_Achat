@@ -24,7 +24,7 @@ type CollaborateurData = {
     Roles?: string[];
 };
 
-type CollaborateurWithRelations = any<{
+type CollaborateurWithRelations = {
     include: {
         service: {
             select: {

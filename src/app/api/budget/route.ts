@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import prisma from "@/lib/prisma";
-import { Decimal } from "@prisma/client/runtime/library";
+import { Prisma } from "@prisma/client";
 
 export async function GET(request: Request) {
   try {
@@ -67,7 +67,7 @@ export async function POST(request: Request) {
     const budget = await prisma.budget.create({
       data: {
         codeBudgetaire: CodeBudgetaire,
-        montantDisponible: new Decimal(MontantDisponible || 0),
+        montantDisponible: new Prisma.Decimal(MontantDisponible || 0),
         serviceId: ServiceID ? parseInt(ServiceID.toString(), 10) : null,
       },
     });

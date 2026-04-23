@@ -14,7 +14,7 @@ type ServiceData = {
   ChefMatricule: string;
 };
 
-type ServiceWithRelations = any<{
+type ServiceWithRelations = {
   include: {
     chef: {
       select: {
@@ -50,7 +50,7 @@ const columns = [
 const ITEMS_PER_PAGE = 6;
 
 async function getServices(
-  page: number = 1, 
+  page: number = 1,
   search?: string,
   filterType?: string,
   filterValue?: string,
@@ -67,7 +67,7 @@ async function getServices(
 
     // Build where clause for search and filters
     const where: any = {};
-    
+
     if (search && search.trim()) {
       const searchTerm = search.trim();
       where.OR = [
@@ -173,8 +173,8 @@ async function getServices(
       NomService: service.nomService,
       Abreviation: service.abreviation || '',
       ChefServiceMatricule: service.chefServiceMatricule || null, // Garder le matricule pour le formulaire
-      ChefMatricule: service.chef 
-        ? `${service.chef.prenom || ''} ${service.chef.nom || ''}`.trim() || service.chef.matricule 
+      ChefMatricule: service.chef
+        ? `${service.chef.prenom || ''} ${service.chef.nom || ''}`.trim() || service.chef.matricule
         : 'Non assigné', // Pour l'affichage
     }));
 
@@ -215,12 +215,12 @@ const ServiceListPage = async ({ searchParams }: PageProps) => {
   const filterValue = searchParams.filterValue;
   const sortBy = searchParams.sortBy;
   const sortOrder = searchParams.sortOrder as "asc" | "desc" | undefined;
-  
-  const { 
-    data: servicesData, 
-    totalPages, 
-    total, 
-    currentPage: page 
+
+  const {
+    data: servicesData,
+    totalPages,
+    total,
+    currentPage: page
   } = await getServices(currentPage, searchQuery, filterType, filterValue, sortBy, sortOrder);
 
   const renderRow = (item: ServiceData) => (
@@ -240,17 +240,17 @@ const ServiceListPage = async ({ searchParams }: PageProps) => {
         <div className="flex items-center gap-2">
           {role === "admin" && (
             <>
-              <FormModal 
-                table="service" 
-                type="update" 
+              <FormModal
+                table="service"
+                type="update"
                 data={item}
                 id={item.ID_Service}
               />
-              <FormModal 
-                table="service" 
-                type="delete" 
+              <FormModal
+                table="service"
+                type="delete"
                 data={item}
-                id={item.ID_Service} 
+                id={item.ID_Service}
               />
             </>
           )}
